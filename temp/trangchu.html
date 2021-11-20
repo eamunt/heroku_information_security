@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Luachonhema</title>
+        <style>
+            #navcontainer { width: 200px; }
+
+            #navcontainer ul
+            {
+                margin-left: 0;
+                padding-left: 0;
+                list-style-type: none;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            #navcontainer a
+            {
+                display: block;
+                padding: 3px;
+                width: 160px;
+                background:url(img/normal.png) repeat-x #dcdcdc;
+                border-bottom: 1px solid #606061;
+            }
+            #navcontainer a:link, #navlist a:visited
+            {
+                color: #9c9d9d;
+                text-decoration: none;
+            }
+            #navcontainer a:hover
+            {
+                background:url(img/hover.png) repeat-x #147bba;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="navcontainer">
+            <ul id="navlist">
+                <li><a href="{{ url_for('caesar_e') }}">HemaCaesar</a></li>
+                <li><a href="{{ url_for('caesar_d') }}">DecryptHeMaCaesar</a></li>
+                <li><a href="{{ url_for('affine_e') }}">HemaAffine</a></li>
+                <li><a href="{{ url_for('affine_d') }}">DecryptHeMaAffine</a></li>
+            </ul>
+        </div>
+    </body>
+</html>
