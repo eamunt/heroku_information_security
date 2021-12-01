@@ -3,22 +3,29 @@
     <head>
         <title>Luachonhema</title>
         <style>
-            #navcontainer { width: 200px; }
+            #navcontainer 
+            { 
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
 
             #navcontainer ul
             {
-                margin-left: 0;
-                padding-left: 0;
                 list-style-type: none;
                 font-family: Arial, Helvetica, sans-serif;
+                padding: 0%;
             }
             #navcontainer a
             {
                 display: block;
                 padding: 3px;
-                width: 160px;
-                background:url(img/normal.png) repeat-x #dcdcdc;
-                border-bottom: 1px solid #606061;
+                width: 400px;
+                background: repeat-x #dcdcdc;
+                border-bottom: 1px solid pink;
+                height: 50px;
+                text-align: center;
+                font-size: 30px;
             }
             #navcontainer a:link, #navlist a:visited
             {
@@ -27,18 +34,44 @@
             }
             #navcontainer a:hover
             {
-                background:url(img/hover.png) repeat-x #147bba;
+                background: repeat-x #147bba;
                 color: #fff;
             }
+            h1{
+                width: 400px;
+                text-align: center;
+            }
+            .center {
+                border: 3px solid green;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+         
         </style>
     </head>
-    <body>
-        <div id="navcontainer">
+    <body class="center">
+        <div id="navcontainer" >
+            <h1>Information Security CT</h1>
             <ul id="navlist">
-                <li><a href="{{ url_for('caesar_e') }}">HemaCaesar</a></li>
-                <li><a href="{{ url_for('caesar_d') }}">DecryptHeMaCaesar</a></li>
-                <li><a href="{{ url_for('affine_e') }}">HemaAffine</a></li>
-                <li><a href="{{ url_for('affine_d') }}">DecryptHeMaAffine</a></li>
+                <li><a style="background: repeat-x pink;" href="{{ url_for('caesar_e') }}">Hệ mã Caesar</a></li>
+                <li><a style="background: repeat-x pink;" href="{{ url_for('caesar_d') }}">Decrypt Hệ Mã Caesar</a></li>
+                <li><a href="{{ url_for('affine_e') }}">Hệ mã Affine</a></li>
+                <li><a href="{{ url_for('affine_d') }}">Decrypt Hệ Mã Affine</a></li>
+                <li><a style="background: repeat-x pink;" href="{{ url_for('doicho_e') }}">Hệ mã Đổi chỗ</a></li>
+                <li><a style="background: repeat-x pink;" href="{{ url_for('doicho_d') }}">Decrypt Hệ mã Đổi chỗ</a></li>
+                <li><a href="{{ url_for('xor_e') }}">Hệ mã XOR</a></li>
+                <li><a href="{{ url_for('xor_d') }}">Decrypt Hệ mã XOR</a></li>
+                <li><a style="background: repeat-x pink;" href="{{ url_for('hemanhan_e') }}">Hệ mã nhân</a></li>
+                <li><a style="background: repeat-x pink;" href="{{ url_for('hemanhan_d') }}">Decrypt Hệ mã nhân</a></li>
+                <li><a href="{{ url_for('reverse_e') }}">Hệ mã đảo ngược</a></li>
+                <li><a href="{{ url_for('reverse_d') }}">Decypt Hệ mã đảo ngược</a></li>
+                <li><a style="background: repeat-x pink;" href="{{ url_for('rot13_e') }}">Hệ mã ROT13</a></li>
+                <li><a style="background: repeat-x pink;" href="{{ url_for('rot13_d') }}">Decypt Hệ mã ROT13</a></li>
+                <li><a href="{{ url_for('vigenere_e') }}">Hệ mã Vigenere</a></li>
+                <li><a href="{{ url_for('vigenere_d') }}">Decypt Hệ mã Vigenere</a></li>
+                <li><a href="{{ url_for('hill_e') }}">Hệ mã Hill</a></li>
+                <li><a href="{{ url_for('hill_d') }}">Decypt Hệ mã Hill</a></li>
             </ul>
         </div>
     </body>
