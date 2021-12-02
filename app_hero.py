@@ -9,6 +9,7 @@ import reverse
 import rot13
 import vigenere
 import hill
+import simpleSC
 
 from flask import Flask, request, render_template, jsonify
 app = Flask(__name__, template_folder="temp")
@@ -256,7 +257,7 @@ def deVigenere():
 
 #####################################################################################################################
 ## HILL
-@app.route('/hill_e',methods=['GET'])
+'''@app.route('/hill_e',methods=['GET'])
 def hill_e():
     return render_template('hill.html')
 
@@ -281,7 +282,39 @@ def deHill():
     res = hill.decryptHill(t,k)
 
     # Render the output in new HTML page
+    return render_template('output.html', result=res)'''
+
+#####################################################################################################################
+## SimpleSC
+@app.route('/simpleSC_e',methods=['GET'])
+def simpleSC_e():
+    return render_template('simpleSC.html')
+
+@app.route('/encryptSimpleSC',methods=['GET'])
+def enSimpleSC():
+    p = request.args.get('t') # get plaintext
+    k = request.args.get('key') # get key
+    #chuyển dữ liệu qua hàm encrypt của file hema
+    res = simpleSC.encryptSimpleSC(p,k)
+    key1 = simpleSC.t_key
+    # Render the output in new HTML page
+    return render_template('output_simpleSC.html', result=res, keyt = key1)
+
+@app.route('/simpleSC_d',methods=['GET'])
+def simpleSC_d():
+    return render_template('de_simpleSC.html')
+
+@app.route('/decryptSimpleSC',methods=['GET'])
+def deSimpleSC():
+    t = request.args.get('t') 
+    k = request.args.get('key') 
+    res = simpleSC.decryptSimpleSC(t,k)
+
+    # Render the output in new HTML page
     return render_template('output.html', result=res)
+
+
+
 
 #sử dụng app.run() để chạy web flask
 if(__name__=='__main__'):

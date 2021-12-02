@@ -1,4 +1,4 @@
-import numpy as np
+'''import numpy as np
 
 def encryptHill(msg,K):
     msg = msg.replace(" ", "") #Thay the khoang trang
@@ -18,8 +18,8 @@ def encryptHill(msg,K):
         encrypted_msg += chr(integer)
     return encrypted_msg
 
-def decryptHill(encrypted_msg):
-    K = make_key()  #Tao va Kiem tra Khoa 
+def decryptHill(encrypted_msg, K):
+    #K = make_key()  #Tao va Kiem tra Khoa 
     #Tinh dinh thuc
     determinant = K[0][0] * K[1][1] - K[0][1] * K[1][0]
     determinant = determinant % 26
@@ -90,9 +90,11 @@ def chr_to_int(char):
     integer = ord(char) - 65
     return integer
 
-'''if __name__ == "__main__":
+if __name__ == "__main__":
     msg = input("Message: ")
     encrypted_msg = encrypt(msg)
     print(encrypted_msg)
     decrypted_msg = decrypt(encrypted_msg)
-    print(decrypted_msg)'''
+    print(decrypted_msg)
+
+'''
