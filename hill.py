@@ -1,31 +1,33 @@
-'''import numpy as np
+import numpy as np
 
-def encryptHill(msg,K):
-    msg = msg.replace(" ", "") #Thay the khoang trang
-    K = check_key(K)  #Tao va Kiem tra Khoa 
+def encryptHill(msg, key):
+    msg = msg.replace(" ", "") #Thay thế khoảng trắng
+    key = key.replace(" ","")
+    K = create_matrix_of_integers_from_string(key) # Tạo ma trận khóa
     len_check = len(msg) % 2 == 0
-    if not len_check:
+    if not len_check: # Nếu chiều dài lẻ thì thêm 0 vào cuối
         msg += "0"
-    P = create_matrix_of_integers_from_string(msg) #Tach plaintext
-    msg_len = int(len(msg) / 2)
+    P = create_matrix_of_integers_from_string(msg) #Tách plaintext
+    msg_len = int(len(msg) / 2) # Số cột ma trận
     encrypted_msg = ""
-    for i in range(msg_len): #Ma hoa P*K 
-        row_0 = P[0][i] * K[0][0] + P[1][i] * K[0][1] # nhan hang 0 cua khoa voi cot i cua p
-        integer = int(row_0 % 26 + 65)
-        encrypted_msg += chr(integer)
-        row_1 = P[0][i] * K[1][0] + P[1][i] * K[1][1]
+    for i in range(msg_len): #Mã hóa P*K 
+        row_0 = P[0][i] * K[0][0] + P[1][i] * K[0][1] # Nhân hàng 0 của khóa với cột i của P
+        integer = int(row_0 % 26 + 65) # mod 26
+        encrypted_msg += chr(integer) # Chuyển thành kí tự
+        row_1 = P[0][i] * K[1][0] + P[1][i] * K[1][1] # Nhân hàng 1 của khóa với cột i của P
         integer = int(row_1 % 26 + 65)
         encrypted_msg += chr(integer)
     return encrypted_msg
 
-def decryptHill(encrypted_msg, K):
-    #K = make_key()  #Tao va Kiem tra Khoa 
-    #Tinh dinh thuc
+def decryptHill(encrypted_msg, key):
+    key = key.replace(" ","")
+    K = create_matrix_of_integers_from_string(key) # Tạo ma trận khóa
+    #Tính định thức
     determinant = K[0][0] * K[1][1] - K[0][1] * K[1][0]
     determinant = determinant % 26
-    #Tinh nghich dao cua dinh thuc
+    #Tính nghịch đảo của định thức
     multiplicative_inverse = find_multiplicative_inverse(determinant)
-    #Tinh ma tran nghich dao cua Khoa K
+    #Tính ma trận nghịch đảo của khóa K
     K_inverse = K
     K_inverse[0][0], K_inverse[1][1] = K_inverse[1, 1], K_inverse[0, 0]
     K[0][1] *= -1
@@ -36,65 +38,42 @@ def decryptHill(encrypted_msg, K):
             K_inverse[row][column] = K_inverse[row][column] % 26
     #Tach cipher text
     C = create_matrix_of_integers_from_string(encrypted_msg)
-    msg_len = int(len(encrypted_msg) / 2)
+    msg_len = int(len(encrypted_msg) / 2) # Số cột ma trận
     decrypted_msg = ""
     for i in range(msg_len): #Giai ma C*K^-1
-        column_0 = C[0][i] * K_inverse[0][0] + C[1][i] * K_inverse[0][1]
-        integer = int(column_0 % 26 + 65)
-        decrypted_msg += chr(integer)
-        column_1 = C[0][i] * K_inverse[1][0] + C[1][i] * K_inverse[1][1]
+        column_0 = C[0][i] * K_inverse[0][0] + C[1][i] * K_inverse[0][1] # Nhân hàng 0 của khóa với cột i của P
+        integer = int(column_0 % 26 + 65) # mod 26
+        decrypted_msg += chr(integer) # Chuyển thành kí tự
+        column_1 = C[0][i] * K_inverse[1][0] + C[1][i] * K_inverse[1][1] # Nhân hàng 1 của khóa với cột i của P
         integer = int(column_1 % 26 + 65)
         decrypted_msg += chr(integer)
-    if decrypted_msg[-1] == "0":
+    if decrypted_msg[-1] == "0": # Bỏ kí tự 0 ở cuối
         decrypted_msg = decrypted_msg[:-1]
     return decrypted_msg
 
-def find_multiplicative_inverse(determinant): #Tim nghich dao dthuc
+def find_multiplicative_inverse(determinant): #Tìm nghịch đảo của định thức
     multiplicative_inverse = -1
     for i in range(26):
         inverse = determinant * i
-        if inverse % 26 == 1:
+        if inverse % 26 == 1: # Nếu determinant * i = 1 (mod 26) => i là nghịch đảo
             multiplicative_inverse = i
             break
     return multiplicative_inverse
 
-def check_key(KEY): #Tao va kiem tra khoa
-
-    KEY = KEY.replace(" ","")
-    K = create_matrix_of_integers_from_string(KEY)
-    determinant = K[0][0] * K[1][1] - K[0][1] * K[1][0]
-    determinant = determinant % 26
-    inverse_element = find_multiplicative_inverse(determinant)
-    if inverse_element == -1:
-        print("Determinant is not relatively prime to 26, uninvertible key")
-    elif np.amax(K) > 26 and np.amin(K) < 0:
-        print("Only a-z characters are accepted")
-        print(np.amax(K), np.amin(K))
-    else:
-        break
-    return KEY
-
-def create_matrix_of_integers_from_string(string): #Tao ma tran Khoa
-    integers = [chr_to_int(c) for c in string]
-    length = len(integers)
-    M = np.zeros((2, int(length / 2)), dtype=np.int32)
+def create_matrix_of_integers_from_string(string): #Tạo ma trận khóa
+    integers = [chr_to_int(c) for c in string] # Tạo list chứa các số nguyên tương ứng với các kí tự trong chuỗi
+    length = len(integers) # Số kí tự
+    M = np.zeros((2, int(length / 2)), dtype=np.int32) # Tạo ma trận zero gồm 2 hàng, (số kí tự / 2) cột
     iterator = 0
+    # Tạo ma trận từ các số nguyên trong list
     for column in range(int(length / 2)):
         for row in range(2):
             M[row][column] = integers[iterator]
             iterator += 1
     return M
 
-def chr_to_int(char):
+def chr_to_int(char): # Chuyển kí tự thành số nguyên 0 - 25
     char = char.upper()
     integer = ord(char) - 65
     return integer
 
-if __name__ == "__main__":
-    msg = input("Message: ")
-    encrypted_msg = encrypt(msg)
-    print(encrypted_msg)
-    decrypted_msg = decrypt(encrypted_msg)
-    print(decrypted_msg)
-
-'''

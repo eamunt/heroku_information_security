@@ -257,7 +257,7 @@ def deVigenere():
 
 #####################################################################################################################
 ## HILL
-'''@app.route('/hill_e',methods=['GET'])
+@app.route('/hill_e',methods=['GET'])
 def hill_e():
     return render_template('hill.html')
 
@@ -282,7 +282,7 @@ def deHill():
     res = hill.decryptHill(t,k)
 
     # Render the output in new HTML page
-    return render_template('output.html', result=res)'''
+    return render_template('output.html', result=res)
 
 #####################################################################################################################
 ## SimpleSC
