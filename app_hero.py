@@ -10,6 +10,7 @@ import rot13
 import vigenere
 import hill
 import simpleSC
+import des
 
 from flask import Flask, request, render_template, jsonify
 app = Flask(__name__, template_folder="temp")
@@ -313,7 +314,34 @@ def deSimpleSC():
     # Render the output in new HTML page
     return render_template('output.html', result=res)
 
+#####################################################################################################################
+## DES ( data encryption standard)
+@app.route('/des_e',methods=['GET'])
+def des_e():
+    return render_template('des.html')
 
+@app.route('/encryptDES',methods=['GET'])
+def enDES():
+    p = request.args.get('t') # get plaintext
+    k = request.args.get('key') # get key
+    #chuyển dữ liệu qua hàm encrypt của file hema
+    res = des.encryptDES(p,k)
+
+    # Render the output in new HTML page
+    return render_template('output.html', result=res)
+
+@app.route('/des_d',methods=['GET'])
+def des_d():
+    return render_template('de_des.html')
+
+@app.route('/decryptDES',methods=['GET'])
+def deDES():
+    t = request.args.get('t') 
+    k = request.args.get('key') 
+    res = des.decryptDES(t,k)
+
+    # Render the output in new HTML page
+    return render_template('output.html', result=res)
 
 
 #sử dụng app.run() để chạy web flask
