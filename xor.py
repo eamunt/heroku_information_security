@@ -1,4 +1,4 @@
-#hello
+#hello haha 
 #dec to bin
 def dec2bin(num):
     res = bin(num).replace("0b", "")
