@@ -1,1 +1,1 @@
-web: gunicorn app_hero:app --log-file -
+web: python app_hero.py runserver
