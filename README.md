@@ -1,5 +1,3 @@
-# heroku_information_security
-
 # Select
 <img width="1000" alt="Screen Shot 2023-02-19 at 16 06 06" src="https://user-images.githubusercontent.com/93971378/219939076-5fac80d6-56bc-4aaf-8db3-7545f1876a5a.png">
 # He ma Affine
